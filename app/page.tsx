@@ -120,7 +120,7 @@ export default function Home() {
       </section>
 
       <footer className="container mx-auto px-4 py-8 text-center text-muted-foreground border-t border-border">
-        <p>&copy; 2024 SnapTask. Built with ❤️ using Lovable.</p>
+        <p>&copy; 2025 SnapTask. Built by Raghav Tandulkar</p>
       </footer>
     </div>
   );
