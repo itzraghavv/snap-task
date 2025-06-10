@@ -33,7 +33,7 @@ export default function Home() {
       <header className="container mx-auto px-4 py-6">
         <nav className="flex justify-between items-center">
           <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            TaskManager
+            SnapTask
           </div>
           <div className="space-x-4">
             <Link href="/signin">
@@ -120,7 +120,7 @@ export default function Home() {
       </section>
 
       <footer className="container mx-auto px-4 py-8 text-center text-muted-foreground border-t border-border">
-        <p>&copy; 2024 TaskManager. Built with ❤️ using Lovable.</p>
+        <p>&copy; 2024 SnapTask. Built with ❤️ using Lovable.</p>
       </footer>
     </div>
   );
