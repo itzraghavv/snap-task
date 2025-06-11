@@ -1,20 +1,54 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "./ui/button";
-import { Label } from "@radix-ui/react-label";
-import { Input } from "./ui/input";
-import { ArrowLeft } from "lucide-react";
 import React, { useState } from "react";
+import { ArrowLeft } from "lucide-react";
+
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { SignInSchema } from "@/lib/validator";
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
+    const data = SignInSchema.safeParse({ email, password });
+
+    if (!data.success) {
+      console.log(data.error);
+      return;
+    }
+
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        username: email,
+        password,
+      });
+
+      if (res?.error) {
+        setLoading(false);
+        // TODO - add toaster/sonner here
+        console.log(res.error);
+        console.log("Failed to signin!");
+      } else {
+        router.push("/user");
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

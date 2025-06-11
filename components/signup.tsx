@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "./ui/button";
-import { Label } from "@radix-ui/react-label";
-import { Input } from "./ui/input";
-import React, { useState } from "react";
-import { ArrowLeft } from "lucide-react";
 import axios from "axios";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 
 export const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -32,7 +33,7 @@ export const SignUp = () => {
       const res = await axios.post("/api/signup", user);
 
       if (res.status === 200) {
-        router.push("/task");
+        router.push("/user");
       }
     } catch (err) {
       console.log(err);
