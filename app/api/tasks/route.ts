@@ -9,17 +9,17 @@ export async function GET() {
     console.log("seesion");
     console.log(session);
 
-    if (!session) {
-      return NextResponse.json(
-        {
-          error: "Unauthorized",
-        },
-        { status: 401 }
-      );
-    }
+    // if (!session) {
+    //   return NextResponse.json(
+    //     {
+    //       error: "Unauthorized",
+    //     },
+    //     { status: 401 }
+    //   );
+    // }
 
     const user = await prisma.user.findUnique({
-      where: { email: session.user.email },
+      where: { email: "raghavv@gmail.com" },
     });
 
     if (!user) {

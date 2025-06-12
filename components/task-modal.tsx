@@ -100,7 +100,6 @@ export const TaskForm = ({ task, onSubmit, onClose }: TaskFormProps) => {
               )}
             </div>
 
-            {/* Description */}
             <div>
               <Label
                 htmlFor="description"
@@ -120,9 +119,7 @@ export const TaskForm = ({ task, onSubmit, onClose }: TaskFormProps) => {
               />
             </div>
 
-            {/* Priority and Due Date Row */}
             <div className="grid grid-cols-2 gap-4">
-              {/* Priority */}
               <div>
                 <Label className="text-sm font-medium mb-2 block">
                   Priority
@@ -159,7 +156,6 @@ export const TaskForm = ({ task, onSubmit, onClose }: TaskFormProps) => {
                 </Select>
               </div>
 
-              {/* Due Date */}
               <div>
                 <Label
                   htmlFor="dueDate"
@@ -180,7 +176,6 @@ export const TaskForm = ({ task, onSubmit, onClose }: TaskFormProps) => {
               </div>
             </div>
 
-            {/* Form Actions */}
             <div className="flex gap-3 pt-4">
               <Button
                 type="button"

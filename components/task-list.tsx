@@ -1,11 +1,13 @@
 import { Task } from "@/app/user/page";
 import { TaskCard } from "./task-card";
+import { Loader2Icon } from "lucide-react";
 
 interface TaskListProps {
   tasks: Task[];
   onToggleComplete: (taskId: string) => void;
   onDeleteTask: (taskId: string) => void;
   onEditTask: (task: Task) => void;
+  loading: boolean;
 }
 
 export const TaskList = ({
@@ -13,9 +15,19 @@ export const TaskList = ({
   onToggleComplete,
   onDeleteTask,
   onEditTask,
+  loading,
 }: TaskListProps) => {
   const pendingTasks = tasks.filter((task) => !task.completed);
   const completedTasks = tasks.filter((task) => task.completed);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center text-center py-16">
+        <Loader2Icon className="animate-spin" />
+        <p className="text-muted-foreground text-lg">Loading tasks...</p>
+      </div>
+    );
+  }
 
   if (tasks.length === 0) {
     return (
@@ -35,7 +47,6 @@ export const TaskList = ({
 
   return (
     <div className="space-y-8">
-      {/* Pending Tasks */}
       {pendingTasks.length > 0 && (
         <div>
           <h2 className="text-2xl font-semibold mb-4 text-foreground">
@@ -56,7 +67,6 @@ export const TaskList = ({
         </div>
       )}
 
-      {/* Completed Tasks */}
       {completedTasks.length > 0 && (
         <div>
           <h2 className="text-2xl font-semibold mb-4 text-foreground">
