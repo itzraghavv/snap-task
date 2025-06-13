@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
   }
 
   const user = await prisma.user.findUnique({
-    where: { email: session.user },
+    where: { email: session.user.email },
   });
 
   if (!user) {
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       title,
       description,
       priority,
-      dueDate,
+      dueDate: new Date(dueDate),
       userId: user.id,
     },
   });

@@ -6,20 +6,18 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const session = await getServerSession(authOptions);
-    console.log("seesion");
-    console.log(session);
 
-    // if (!session) {
-    //   return NextResponse.json(
-    //     {
-    //       error: "Unauthorized",
-    //     },
-    //     { status: 401 }
-    //   );
-    // }
+    if (!session) {
+      return NextResponse.json(
+        {
+          error: "Unauthorized",
+        },
+        { status: 401 }
+      );
+    }
 
     const user = await prisma.user.findUnique({
-      where: { email: "raghavv@gmail.com" },
+      where: { email: session.user.email },
     });
 
     if (!user) {

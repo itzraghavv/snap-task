@@ -24,7 +24,7 @@ export const TaskForm = ({ task, onSubmit, onClose }: TaskFormProps) => {
   const [formData, setFormData] = useState({
     title: task?.title || "",
     description: task?.description || "",
-    priority: task?.priority || ("medium" as "low" | "medium" | "high"),
+    priority: task?.priority || ("MEDIUM" as "LOW" | "MEDIUM" | "HIGH"),
     dueDate: task?.dueDate || "",
     completed: task?.completed || false,
   });
@@ -64,9 +64,8 @@ export const TaskForm = ({ task, onSubmit, onClose }: TaskFormProps) => {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 animate-fade-in">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto animate-scale-in">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overfLOW-y-auto animate-scale-in">
         <div className="p-6">
-          {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {task ? "Edit Task" : "Create New Task"}
@@ -81,11 +80,9 @@ export const TaskForm = ({ task, onSubmit, onClose }: TaskFormProps) => {
             </Button>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Title */}
             <div>
-              <Label htmlFor="title" className="text-sm font-medium mb-2 block">
+              <Label htmlFor="title" className="text-sm font-MEDIUM mb-2 block">
                 Task Title *
               </Label>
               <Input
@@ -103,7 +100,7 @@ export const TaskForm = ({ task, onSubmit, onClose }: TaskFormProps) => {
             <div>
               <Label
                 htmlFor="description"
-                className="text-sm font-medium mb-2 block"
+                className="text-sm font-MEDIUM mb-2 block"
               >
                 Description
               </Label>
@@ -121,12 +118,12 @@ export const TaskForm = ({ task, onSubmit, onClose }: TaskFormProps) => {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-sm font-medium mb-2 block">
+                <Label className="text-sm font-MEDIUM mb-2 block">
                   Priority
                 </Label>
                 <Select
                   value={formData.priority}
-                  onValueChange={(value: "low" | "medium" | "high") =>
+                  onValueChange={(value: "LOW" | "MEDIUM" | "HIGH") =>
                     handleInputChange("priority", value)
                   }
                 >
@@ -134,22 +131,22 @@ export const TaskForm = ({ task, onSubmit, onClose }: TaskFormProps) => {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="low">
+                    <SelectItem value="LOW">
                       <span className="flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full bg-green-500"></div>
-                        Low
+                        LOW
                       </span>
                     </SelectItem>
-                    <SelectItem value="medium">
+                    <SelectItem value="MEDIUM">
                       <span className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
-                        Medium
+                        <div className="w-2 h-2 rounded-full bg-yelLOW-500"></div>
+                        MEDIUM
                       </span>
                     </SelectItem>
-                    <SelectItem value="high">
+                    <SelectItem value="HIGH">
                       <span className="flex items-center gap-2">
                         <div className="w-2 h-2 rounded-full bg-red-500"></div>
-                        High
+                        HIGH
                       </span>
                     </SelectItem>
                   </SelectContent>
@@ -159,7 +156,7 @@ export const TaskForm = ({ task, onSubmit, onClose }: TaskFormProps) => {
               <div>
                 <Label
                   htmlFor="dueDate"
-                  className="text-sm font-medium mb-2 block"
+                  className="text-sm font-MEDIUM mb-2 block"
                 >
                   Due Date *
                 </Label>

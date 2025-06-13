@@ -8,28 +8,33 @@ import { TaskForm } from "@/components/task-modal";
 import { TaskList } from "@/components/task-list";
 import { Stats } from "@/components/stats";
 import { useGetTasks } from "@/hooks/use-get-tasks";
+import { useCreateTask } from "@/hooks/use-create-task";
 
 export interface Task {
   id: string;
   title: string;
   description: string;
-  priority: "low" | "medium" | "high";
+  priority: "LOW" | "MEDIUM" | "HIGH";
   dueDate: string;
   completed: boolean;
   createdAt: string;
 }
 
 export default function Index() {
-  const { tasks, loading, error, setTasks } = useGetTasks();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
 
-  const handleCreateTask = (taskData: Omit<Task, "id" | "createdAt">) => {
-    const newTask: Task = {
-      ...taskData,
-      id: Date.now().toString(),
-      createdAt: new Date().toISOString().split("T")[0],
-    };
+  const { tasks, loading, setTasks } = useGetTasks();
+  const { createTask } = useCreateTask();
+
+  const handleCreateTask = async (taskData: Omit<Task, "id" | "createdAt">) => {
+    const newTask: Task = await createTask({
+      title: taskData.title,
+      description: taskData.description,
+      completed: taskData.completed,
+      priority: taskData.priority,
+      dueDate: taskData.dueDate,
+    });
     setTasks([newTask, ...tasks]);
     setIsFormOpen(false);
   };
