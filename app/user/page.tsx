@@ -9,9 +9,10 @@ import { TaskList } from "@/components/task-list";
 import { Stats } from "@/components/stats";
 import { useGetTasks } from "@/hooks/use-get-tasks";
 import { useCreateTask } from "@/hooks/use-create-task";
+import { useDeleteTask } from "@/hooks/use-delete-task";
 
 export interface Task {
-  id: string;
+  id: number;
   title: string;
   description: string;
   priority: "LOW" | "MEDIUM" | "HIGH";
@@ -25,7 +26,9 @@ export default function Index() {
   const [editingTask, setEditingTask] = useState<Task | null>(null);
 
   const { tasks, loading, setTasks } = useGetTasks();
+
   const { createTask } = useCreateTask();
+  const { deleteTask } = useDeleteTask();
 
   const handleCreateTask = async (taskData: Omit<Task, "id" | "createdAt">) => {
     const newTask: Task = await createTask({
@@ -51,11 +54,16 @@ export default function Index() {
     }
   };
 
-  const handleDeleteTask = (taskId: string) => {
-    setTasks(tasks.filter((task) => task.id !== taskId));
+  const handleDeleteTask = async (taskId: number) => {
+    try {
+      await deleteTask(taskId);
+      setTasks(tasks.filter((task) => task.id !== taskId));
+    } catch (err) {
+      console.log("Failed to Delete", err);
+    }
   };
 
-  const handleToggleComplete = (taskId: string) => {
+  const handleToggleComplete = (taskId: number) => {
     setTasks(
       tasks.map((task) =>
         task.id === taskId ? { ...task, completed: !task.completed } : task

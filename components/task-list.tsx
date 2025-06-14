@@ -4,8 +4,8 @@ import { Loader2Icon } from "lucide-react";
 
 interface TaskListProps {
   tasks: Task[];
-  onToggleComplete: (taskId: string) => void;
-  onDeleteTask: (taskId: string) => void;
+  onToggleComplete: (taskId: number) => void;
+  onDeleteTask: (taskId: number) => void;
   onEditTask: (task: Task) => void;
   loading: boolean;
 }
