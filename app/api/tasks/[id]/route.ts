@@ -26,3 +26,34 @@ export async function DELETE(
     return NextResponse.json({ error: "Task not found" }, { status: 404 });
   }
 }
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+  }
+
+  const taskId = parseInt(params.id);
+  const { title, description, priority, dueDate } = await req.json();
+
+  try {
+    const updatedTask = await prisma.tasks.update({
+      where: { id: taskId },
+      data: {
+        title,
+        description,
+        priority,
+        dueDate: new Date(dueDate),
+      },
+    });
+
+    return NextResponse.json(updatedTask, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: "Update failed" }, { status: 400 });
+  }
+}

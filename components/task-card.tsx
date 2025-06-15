@@ -119,7 +119,6 @@ export const TaskCard = ({
             </span>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex items-center gap-2">
             <Button
               variant="outline"

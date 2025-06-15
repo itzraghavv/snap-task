@@ -10,6 +10,7 @@ import { Stats } from "@/components/stats";
 import { useGetTasks } from "@/hooks/use-get-tasks";
 import { useCreateTask } from "@/hooks/use-create-task";
 import { useDeleteTask } from "@/hooks/use-delete-task";
+import { useEditTask } from "@/hooks/use-edit-task";
 
 export interface Task {
   id: number;
@@ -29,6 +30,7 @@ export default function Index() {
 
   const { createTask } = useCreateTask();
   const { deleteTask } = useDeleteTask();
+  const { editTask } = useEditTask();
 
   const handleCreateTask = async (taskData: Omit<Task, "id" | "createdAt">) => {
     const newTask: Task = await createTask({
@@ -42,15 +44,22 @@ export default function Index() {
     setIsFormOpen(false);
   };
 
-  const handleUpdateTask = (taskData: Omit<Task, "id" | "createdAt">) => {
-    if (editingTask) {
-      setTasks(
-        tasks.map((task) =>
-          task.id === editingTask.id ? { ...task, ...taskData } : task
+  const handleUpdateTask = async (taskData: Omit<Task, "id" | "createdAt">) => {
+    if (!editingTask) return;
+
+    try {
+      const updated = await editTask(editingTask.id, taskData);
+
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === editingTask.id ? { ...task, ...updated } : task
         )
       );
+
       setEditingTask(null);
       setIsFormOpen(false);
+    } catch (err) {
+      console.error("Failed to update task", err);
     }
   };
 
