@@ -1,5 +1,6 @@
 "use client";
 
+import { Toaster } from "@/components/ui/sonner";
 import { SessionProvider } from "next-auth/react";
 
 export default function UserLayout({
@@ -10,6 +11,7 @@ export default function UserLayout({
   return (
     <SessionProvider>
       <main>{children}</main>
+      <Toaster />
     </SessionProvider>
   );
 }

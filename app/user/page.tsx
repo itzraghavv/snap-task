@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { TaskForm } from "@/components/task-modal";
 import { TaskList } from "@/components/task-list";
 import { Stats } from "@/components/stats";
+
 import { useGetTasks } from "@/hooks/use-get-tasks";
 import { useCreateTask } from "@/hooks/use-create-task";
 import { useDeleteTask } from "@/hooks/use-delete-task";
@@ -42,6 +44,7 @@ export default function Index() {
     });
     setTasks([newTask, ...tasks]);
     setIsFormOpen(false);
+    toast.success("Task Added!");
   };
 
   const handleUpdateTask = async (taskData: Omit<Task, "id" | "createdAt">) => {
@@ -59,6 +62,7 @@ export default function Index() {
       setEditingTask(null);
       setIsFormOpen(false);
     } catch (err) {
+      toast.error("Failed to update task.");
       console.error("Failed to update task", err);
     }
   };
@@ -68,6 +72,7 @@ export default function Index() {
       await deleteTask(taskId);
       setTasks(tasks.filter((task) => task.id !== taskId));
     } catch (err) {
+      toast.error("Failed to delete task.");
       console.log("Failed to Delete", err);
     }
   };
